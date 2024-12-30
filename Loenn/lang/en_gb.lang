@@ -1,0 +1,4 @@
+# triggers
+triggers.SleepyHelper/SetStReflectionFallDelayTrigger.placements.name.normal=Set StReflectionFall Delay
+triggers.SleepyHelper/SetStReflectionFallDelayTrigger.attributes.placements.name.delay=Delay
+triggers.SleepyHelper/SetStReflectionFallDelayTrigger.attributes.description.delay=Delay in frames before you start falling.

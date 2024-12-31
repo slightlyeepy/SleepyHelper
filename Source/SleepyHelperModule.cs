@@ -6,8 +6,8 @@ namespace Celeste.Mod.SleepyHelper;
 public class SleepyHelperModule : EverestModule {
 	public static SleepyHelperModule Instance { get; private set; }
 
-	public static bool customReflectionFallDelayEnabled = false;
-	public static int customReflectionFallDelay = 0;
+	public static bool CustomReflectionFallDelayEnabled = false;
+	public static int CustomReflectionFallDelay = 0;
 
 	public SleepyHelperModule() {
 		Instance = this;
@@ -21,19 +21,19 @@ public class SleepyHelperModule : EverestModule {
 	}
 
 	public override void Load() {
-		On.Celeste.Player.ReflectionFallCoroutine += customReflectionFallCoroutine;
+		On.Celeste.Player.ReflectionFallCoroutine += CustomReflectionFallCoroutine;
 	}
 
 	public override void Unload() {
-		On.Celeste.Player.ReflectionFallCoroutine -= customReflectionFallCoroutine;
+		On.Celeste.Player.ReflectionFallCoroutine -= CustomReflectionFallCoroutine;
 	}
 
-	private static IEnumerator customReflectionFallCoroutine(On.Celeste.Player.orig_ReflectionFallCoroutine orig, Player self) {
-		if (customReflectionFallDelayEnabled) {
+	private static IEnumerator CustomReflectionFallCoroutine(On.Celeste.Player.orig_ReflectionFallCoroutine orig, Player self) {
+		if (CustomReflectionFallDelayEnabled) {
 			self.Sprite.Play("bigFall");
 
 			// wait before entering
-			for (int i = 0; i < customReflectionFallDelay; i++) {
+			for (int i = 0; i < CustomReflectionFallDelay; i++) {
 				self.Speed.Y = 0f;
 				yield return null;
 			}

@@ -5,11 +5,11 @@ namespace Celeste.Mod.SleepyHelper {
 	[CustomEntity("SleepyHelper/SetStReflectionFallDelayTrigger")]
 	public class SetStReflectionFallDelayTrigger : Trigger {
 		public SetStReflectionFallDelayTrigger(EntityData data, Vector2 offset) : base(data, offset) {
-			SleepyHelperModule.customReflectionFallDelay = data.Int("delay");
+			SleepyHelperModule.CustomReflectionFallDelay = data.Int("delay");
 		}
 
 		public override void OnEnter(Player player) {
-			SleepyHelperModule.customReflectionFallDelayEnabled = true;
+			SleepyHelperModule.CustomReflectionFallDelayEnabled = true;
 			base.OnEnter(player);
 		}
 
@@ -18,7 +18,7 @@ namespace Celeste.Mod.SleepyHelper {
 		}
 
 		public override void OnLeave(Player player) {
-			SleepyHelperModule.customReflectionFallDelayEnabled = false;
+			SleepyHelperModule.CustomReflectionFallDelayEnabled = false;
 			base.OnLeave(player);
 		}
 	}

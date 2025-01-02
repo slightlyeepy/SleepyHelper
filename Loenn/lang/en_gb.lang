@@ -1,3 +1,6 @@
+# mod name
+mods.SleepyHelper.name=sleepy helper
+
 # triggers
 triggers.SleepyHelper/SetStReflectionFallDelayTrigger.placements.name.normal=Set StReflectionFall Delay
 triggers.SleepyHelper/SetStReflectionFallDelayTrigger.attributes.placements.name.delay=Delay

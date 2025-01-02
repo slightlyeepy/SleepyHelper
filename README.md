@@ -1,4 +1,4 @@
-# SleepyHelper
+# sleepy helper
 my first celeste mod !!
 
 it was made to be used in my own map, but feel free to use it in yours or do anything you want with it

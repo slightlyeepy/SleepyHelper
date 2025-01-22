@@ -5,3 +5,4 @@ it was made to be used in my own map, but feel free to use it in yours or do any
 
 ## list of things this helper adds
 - Set StReflectionFall Delay Trigger: while inside this trigger, if you enter StReflectionFall, the amount of time before you start falling is changed from 2 seconds to a configurable delay in frames.
+- Freeze Player If In StDummy Trigger: while inside this trigger, if you are in StDummy (for example, in a cutscene), you'll be frozen (0 horizontal & vertical speed) until you leave StDummy.

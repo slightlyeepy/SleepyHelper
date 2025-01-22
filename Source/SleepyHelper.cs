@@ -3,20 +3,20 @@ using System.Collections;
 
 namespace Celeste.Mod.SleepyHelper;
 
-public class SleepyHelperModule : EverestModule {
-	public static SleepyHelperModule Instance { get; private set; }
+public class SleepyHelper : EverestModule {
+	public static SleepyHelper Instance { get; private set; }
 
 	public static bool CustomReflectionFallDelayEnabled = false;
 	public static int CustomReflectionFallDelay = 0;
 
-	public SleepyHelperModule() {
+	public SleepyHelper() {
 		Instance = this;
 #if DEBUG
 		// debug builds use verbose logging
-		Logger.SetLogLevel(nameof(SleepyHelperModule), LogLevel.Verbose);
+		Logger.SetLogLevel(nameof(SleepyHelper), LogLevel.Verbose);
 #else
 		// release builds use info logging to reduce spam in log files
-		Logger.SetLogLevel(nameof(SleepyHelperModule), LogLevel.Info);
+		Logger.SetLogLevel(nameof(SleepyHelper), LogLevel.Info);
 #endif
 	}
 

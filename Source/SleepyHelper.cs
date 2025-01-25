@@ -7,7 +7,7 @@ public class SleepyHelper : EverestModule {
 	public static SleepyHelper Instance { get; private set; }
 
 	public static bool CustomReflectionFallDelayEnabled = false;
-	public static int CustomReflectionFallDelay = 0;
+	public static int CustomReflectionFallDelay;
 
 	public SleepyHelper() {
 		Instance = this;

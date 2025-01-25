@@ -7,3 +7,5 @@ triggers.SleepyHelper/SetStReflectionFallDelayTrigger.attributes.placements.name
 triggers.SleepyHelper/SetStReflectionFallDelayTrigger.attributes.description.delay=Delay in frames before you start falling.
 
 triggers.SleepyHelper/FreezePlayerIfInStDummyTrigger.placements.name.normal=Freeze Player If In StDummy
+triggers.SleepyHelper/FreezePlayerIfInStDummyTrigger.attributes.placements.name.preserveSpeed=Preserve Speed
+triggers.SleepyHelper/FreezePlayerIfInStDummyTrigger.attributes.description.preserveSpeed=Whether the player's speed should be saved upon entering StDummy and restored upon leaving it.

@@ -4,14 +4,14 @@ using Microsoft.Xna.Framework;
 namespace Celeste.Mod.SleepyHelper {
 	[CustomEntity("SleepyHelper/FreezePlayerIfInStDummyTrigger")]
 	public class FreezePlayerIfInStDummyTrigger : Trigger {
-		bool preserveSpeed = false;
-		Vector2 preservedSpeed;
-		bool preservedSpeedSet = false;
-		bool preservedSpeedRestored = false;
-		bool wasInStDummy = false;
+		private bool PreserveSpeed = false;
+		private Vector2 PreservedSpeed;
+		private bool PreservedSpeedSet = false;
+		private bool PreservedSpeedRestored = false;
+		private bool WasInStDummy = false;
 
 		public FreezePlayerIfInStDummyTrigger(EntityData data, Vector2 offset) : base(data, offset) {
-			preserveSpeed = data.Bool("preserveSpeed");
+			PreserveSpeed = data.Bool("PreserveSpeed");
 		}
 
 		public override void OnEnter(Player player) {
@@ -20,10 +20,10 @@ namespace Celeste.Mod.SleepyHelper {
 			if (player.StateMachine.State == Player.StDummy) {
 				player.DummyGravity = false;
 				player.Speed = Vector2.Zero;
-				wasInStDummy = true;
-			} else if (preserveSpeed) {
-				preservedSpeed = player.Speed;
-				preservedSpeedSet = true;
+				WasInStDummy = true;
+			} else if (PreserveSpeed) {
+				PreservedSpeed = player.Speed;
+				PreservedSpeedSet = true;
 			}
 		}
 
@@ -33,14 +33,14 @@ namespace Celeste.Mod.SleepyHelper {
 			if (player.StateMachine.State == Player.StDummy) {
 				player.DummyGravity = false;
 				player.Speed = Vector2.Zero;
-				wasInStDummy = true;
-			} else if (preserveSpeed) {
-				if (preservedSpeedSet && !preservedSpeedRestored && wasInStDummy) {
-					player.Speed = preservedSpeed;
-					preservedSpeedRestored = true;
-				} else if (!preservedSpeedSet) {
-					preservedSpeed = player.Speed;
-					preservedSpeedSet = true;
+				WasInStDummy = true;
+			} else if (PreserveSpeed) {
+				if (PreservedSpeedSet && !PreservedSpeedRestored && WasInStDummy) {
+					player.Speed = PreservedSpeed;
+					PreservedSpeedRestored = true;
+				} else if (!PreservedSpeedSet) {
+					PreservedSpeed = player.Speed;
+					PreservedSpeedSet = true;
 				}
 			}
 		}

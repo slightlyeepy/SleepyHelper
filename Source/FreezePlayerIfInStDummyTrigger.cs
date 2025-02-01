@@ -11,7 +11,7 @@ namespace Celeste.Mod.SleepyHelper {
 		private bool WasInStDummy = false;
 
 		public FreezePlayerIfInStDummyTrigger(EntityData data, Vector2 offset) : base(data, offset) {
-			PreserveSpeed = data.Bool("PreserveSpeed");
+			PreserveSpeed = data.Bool("preserveSpeed");
 		}
 
 		public override void OnEnter(Player player) {

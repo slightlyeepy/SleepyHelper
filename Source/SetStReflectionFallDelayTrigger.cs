@@ -7,27 +7,27 @@ using Microsoft.Xna.Framework;
 namespace Celeste.Mod.SleepyHelper {
 	[CustomEntity("SleepyHelper/SetStReflectionFallDelayTrigger")]
 	public class SetStReflectionFallDelayTrigger : Trigger {
-		private static bool CustomReflectionFallDelayEnabled = false;
-		private static int CustomReflectionFallDelay;
+		private static bool customReflectionFallDelayEnabled = false;
+		private static int customReflectionFallDelay;
 
 		public SetStReflectionFallDelayTrigger(EntityData data, Vector2 offset) : base(data, offset) {
-			CustomReflectionFallDelay = data.Int("delay");
+			customReflectionFallDelay = data.Int("delay");
 		}
 
 		public static void Load() {
-			On.Celeste.Player.ReflectionFallCoroutine += CustomReflectionFallCoroutine;
+			On.Celeste.Player.ReflectionFallCoroutine += customReflectionFallCoroutine;
 		}
 
 		public static void Unload() {
-			On.Celeste.Player.ReflectionFallCoroutine -= CustomReflectionFallCoroutine;
+			On.Celeste.Player.ReflectionFallCoroutine -= customReflectionFallCoroutine;
 		}
 
-		private static IEnumerator CustomReflectionFallCoroutine(On.Celeste.Player.orig_ReflectionFallCoroutine orig, Player player) {
-			if (CustomReflectionFallDelayEnabled) {
+		private static IEnumerator customReflectionFallCoroutine(On.Celeste.Player.orig_ReflectionFallCoroutine orig, Player player) {
+			if (customReflectionFallDelayEnabled) {
 				player.Sprite.Play("bigFall");
 
 				// wait before entering
-				for (int i = 0; i < CustomReflectionFallDelay; i++) {
+				for (int i = 0; i < customReflectionFallDelay; i++) {
 					player.Speed.Y = 0f;
 					yield return null;
 				}
@@ -54,7 +54,7 @@ namespace Celeste.Mod.SleepyHelper {
 		public override void OnEnter(Player player) {
 			base.OnEnter(player);
 
-			CustomReflectionFallDelayEnabled = true;
+			customReflectionFallDelayEnabled = true;
 		}
 
 		public override void OnStay(Player player) {
@@ -64,7 +64,7 @@ namespace Celeste.Mod.SleepyHelper {
 		public override void OnLeave(Player player) {
 			base.OnLeave(player);
 
-			CustomReflectionFallDelayEnabled = false;
+			customReflectionFallDelayEnabled = false;
 		}
 	}
 }

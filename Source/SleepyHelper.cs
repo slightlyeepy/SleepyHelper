@@ -15,14 +15,18 @@ public class SleepyHelper : EverestModule {
 	}
 
 	public override void Load() {
-		FlagToggleColorGradeFadeTrigger.Load();
 		NoDeathTrigger.Load();
 		SetStReflectionFallDelayTrigger.Load();
+
+		FlagNoDeathTrigger.Load();
+		FlagToggleColorGradeFadeTrigger.Load();
 	}
 
 	public override void Unload() {
-		FlagToggleColorGradeFadeTrigger.Unload();
 		NoDeathTrigger.Unload();
 		SetStReflectionFallDelayTrigger.Unload();
+
+		FlagNoDeathTrigger.Unload();
+		FlagToggleColorGradeFadeTrigger.Unload();
 	}
 }

@@ -1,39 +1,9 @@
-# This file uses code from Maddie's Helping Hand:
-#
-# The MIT License (MIT)
-#
-# Copyright (c) 2019 maddie480
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
+# This file uses code from Maddie's Helping Hand -- see LICENSE.MaddiesHelpingHand file.
 
 # mod name
 mods.SleepyHelper.name=sleepy helper
 
 # triggers
-triggers.SleepyHelper/FlagToggleColorGradeFadeTrigger.placements.name.trigger=Color Grade Fade (Flag-Toggled)
-triggers.SleepyHelper/FlagToggleColorGradeFadeTrigger.attributes.description.colorGradeA=The color grade to fade from.
-triggers.SleepyHelper/FlagToggleColorGradeFadeTrigger.attributes.description.colorGradeB=The color grade to fade to.
-triggers.SleepyHelper/FlagToggleColorGradeFadeTrigger.attributes.description.direction=The direction of the fade. For example, if set to LeftToRight, the color grade will fade from color grade A to color grade B when the player crosses the trigger from left to right.
-triggers.SleepyHelper/FlagToggleColorGradeFadeTrigger.attributes.description.flag=The flag this trigger should react to.
-triggers.SleepyHelper/FlagToggleColorGradeFadeTrigger.attributes.description.inverted=If checked, the trigger will be disabled when the flag is active.\nIf unchecked, the trigger will be enabled when the flag is active.
-triggers.SleepyHelper/FlagToggleColorGradeFadeTrigger.attributes.description.evenDuringReflectionFall=Whether this trigger should work even during the reflection fall cutscene (this cutscene usually disables all triggers).
-
 triggers.SleepyHelper/FreezePlayerIfInStDummyTrigger.placements.name.trigger=Freeze Player If In StDummy
 triggers.SleepyHelper/FreezePlayerIfInStDummyTrigger.attributes.placements.name.preserveSpeed=Preserve Speed
 triggers.SleepyHelper/FreezePlayerIfInStDummyTrigger.attributes.description.preserveSpeed=Whether the player's speed should be saved upon entering StDummy and restored upon leaving it.
@@ -43,3 +13,16 @@ triggers.SleepyHelper/NoDeathTrigger.placements.name.trigger=No Death
 triggers.SleepyHelper/SetStReflectionFallDelayTrigger.placements.name.trigger=Set StReflectionFall Delay
 triggers.SleepyHelper/SetStReflectionFallDelayTrigger.attributes.placements.name.delay=Delay
 triggers.SleepyHelper/SetStReflectionFallDelayTrigger.attributes.description.delay=Delay in frames before you start falling.
+
+triggers.SleepyHelper/FlagNoDeathTrigger.placements.name.trigger=Flag No Death
+triggers.SleepyHelper/FlagNoDeathTrigger.attributes.description.flag=The flag this trigger should react to.
+triggers.SleepyHelper/FlagNoDeathTrigger.attributes.description.inverted=If checked, the trigger will be disabled when the flag is active.\nIf unchecked, the trigger will be enabled when the flag is active.
+
+triggers.SleepyHelper/FlagToggleColorGradeFadeTrigger.placements.name.trigger=Color Grade Fade (Flag-Toggled)
+triggers.SleepyHelper/FlagToggleColorGradeFadeTrigger.attributes.description.colorGradeA=The color grade to fade from.
+triggers.SleepyHelper/FlagToggleColorGradeFadeTrigger.attributes.description.colorGradeB=The color grade to fade to.
+triggers.SleepyHelper/FlagToggleColorGradeFadeTrigger.attributes.description.direction=The direction of the fade. For example, if set to LeftToRight, the color grade will fade from color grade A to color grade B when the player crosses the trigger from left to right.
+triggers.SleepyHelper/FlagToggleColorGradeFadeTrigger.attributes.description.flag=The flag this trigger should react to.
+triggers.SleepyHelper/FlagToggleColorGradeFadeTrigger.attributes.description.inverted=If checked, the trigger will be disabled when the flag is active.\nIf unchecked, the trigger will be enabled when the flag is active.
+triggers.SleepyHelper/FlagToggleColorGradeFadeTrigger.attributes.description.evenDuringReflectionFall=Whether this trigger should work even during the reflection fall cutscene (this cutscene usually disables all triggers).
+

@@ -1,7 +1,6 @@
-using System.Collections;
-
 using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
+using System.Collections;
 
 namespace Celeste.Mod.SleepyHelper {
 	[CustomEntity("SleepyHelper/SetStReflectionFallDelayTrigger")]

@@ -1,11 +1,10 @@
 // This file uses code from Maddie's Helping Hand -- see LICENSE.MaddiesHelpingHand file.
 
-using System.Linq;
-
 using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
 using Monocle;
 using MonoMod.Utils;
+using System.Linq;
 
 namespace Celeste.Mod.SleepyHelper {
 	[CustomEntity("SleepyHelper/FlagToggleColorGradeFadeTrigger")]

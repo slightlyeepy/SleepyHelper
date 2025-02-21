@@ -3,6 +3,9 @@
 # mod name
 mods.SleepyHelper.name=sleepy helper
 
+# effects
+style.effects.SleepyHelper/NonStretchedCustomRain.name=Non-Stretched Custom Rain
+
 # triggers
 triggers.SleepyHelper/FreezePlayerIfInStDummyTrigger.placements.name.trigger=Freeze Player If In StDummy
 triggers.SleepyHelper/FreezePlayerIfInStDummyTrigger.attributes.placements.name.preserveSpeed=Preserve Speed

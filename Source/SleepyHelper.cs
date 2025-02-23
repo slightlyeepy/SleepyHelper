@@ -35,6 +35,7 @@ public class SleepyHelper : EverestModule {
 
 		NoDeathTrigger.Load();
 		SetStReflectionFallDelayTrigger.Load();
+		StClimbDoesntKillSpeedTrigger.Load();
 
 		FlagNoDeathTrigger.Load();
 		FlagToggleColorGradeFadeTrigger.Load();
@@ -47,6 +48,7 @@ public class SleepyHelper : EverestModule {
 
 		NoDeathTrigger.Unload();
 		SetStReflectionFallDelayTrigger.Unload();
+		StClimbDoesntKillSpeedTrigger.Unload();
 
 		FlagNoDeathTrigger.Unload();
 		FlagToggleColorGradeFadeTrigger.Unload();

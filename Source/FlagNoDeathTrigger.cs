@@ -39,10 +39,6 @@ namespace Celeste.Mod.SleepyHelper {
 			playerInside = true;
 		}
 
-		public override void OnStay(Player player) {
-			base.OnStay(player);
-		}
-
 		public override void OnLeave(Player player) {
 			base.OnLeave(player);
 

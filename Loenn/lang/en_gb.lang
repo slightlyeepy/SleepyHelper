@@ -8,14 +8,18 @@ style.effects.SleepyHelper/NonStretchedCustomRain.name=Non-Stretched Custom Rain
 
 # triggers
 triggers.SleepyHelper/FreezePlayerIfInStDummyTrigger.placements.name.trigger=Freeze Player If In StDummy
-triggers.SleepyHelper/FreezePlayerIfInStDummyTrigger.attributes.placements.name.preserveSpeed=Preserve Speed
 triggers.SleepyHelper/FreezePlayerIfInStDummyTrigger.attributes.description.preserveSpeed=Whether the player's speed should be saved upon entering StDummy and restored upon leaving it.
+
+triggers.SleepyHelper/HardCrashTrigger.placements.name.trigger=Hard Crash
 
 triggers.SleepyHelper/NoDeathTrigger.placements.name.trigger=No Death
 
 triggers.SleepyHelper/SetStReflectionFallDelayTrigger.placements.name.trigger=Set StReflectionFall Delay
-triggers.SleepyHelper/SetStReflectionFallDelayTrigger.attributes.placements.name.delay=Delay
 triggers.SleepyHelper/SetStReflectionFallDelayTrigger.attributes.description.delay=Delay in frames before you start falling.
+
+triggers.SleepyHelper/StClimbDoesntKillSpeedTrigger.placements.name.trigger=StClimb Doesn't Kill Speed
+triggers.SleepyHelper/StClimbDoesntKillSpeedTrigger.attributes.placements.name.useRetained=Use Retained Speed If 0
+triggers.SleepyHelper/StClimbDoesntKillSpeedTrigger.attributes.description.useRetained=If checked, retained speed will be used if the player has retained speed and the player's horizontal speed is 0.
 
 triggers.SleepyHelper/FlagNoDeathTrigger.placements.name.trigger=Flag No Death
 triggers.SleepyHelper/FlagNoDeathTrigger.attributes.description.flag=The flag this trigger should react to.
@@ -28,4 +32,3 @@ triggers.SleepyHelper/FlagToggleColorGradeFadeTrigger.attributes.description.dir
 triggers.SleepyHelper/FlagToggleColorGradeFadeTrigger.attributes.description.flag=The flag this trigger should react to.
 triggers.SleepyHelper/FlagToggleColorGradeFadeTrigger.attributes.description.inverted=If checked, the trigger will be disabled when the flag is active.\nIf unchecked, the trigger will be enabled when the flag is active.
 triggers.SleepyHelper/FlagToggleColorGradeFadeTrigger.attributes.description.evenDuringReflectionFall=Whether this trigger should work even during the reflection fall cutscene (this cutscene usually disables all triggers).
-

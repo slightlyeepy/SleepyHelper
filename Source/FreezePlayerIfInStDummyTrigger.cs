@@ -44,9 +44,5 @@ namespace Celeste.Mod.SleepyHelper {
 				}
 			}
 		}
-
-		public override void OnLeave(Player player) {
-			base.OnLeave(player);
-		}
 	}
 }

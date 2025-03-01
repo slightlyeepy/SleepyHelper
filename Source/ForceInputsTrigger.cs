@@ -1,3 +1,5 @@
+// This file uses code from Maddie's Helping Hand -- see LICENSE.MaddiesHelpingHand file.
+
 using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
 using Monocle;

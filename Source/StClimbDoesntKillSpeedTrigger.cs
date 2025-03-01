@@ -7,8 +7,9 @@ namespace Celeste.Mod.SleepyHelper {
 	[CustomEntity("SleepyHelper/StClimbDoesntKillSpeedTrigger")]
 	[Tracked]
 	public class StClimbDoesntKillSpeedTrigger : Trigger {
+		private readonly bool useRetained;
+
 		private bool playerInside = false;
-		private bool useRetained;
 
 		public StClimbDoesntKillSpeedTrigger(EntityData data, Vector2 offset) : base(data, offset) {
 			useRetained = data.Bool("useRetained");

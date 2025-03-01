@@ -1,64 +1,67 @@
 using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
 using System.Collections;
+using System.Linq;
 
 namespace Celeste.Mod.SleepyHelper {
 	[CustomEntity("SleepyHelper/SetStReflectionFallDelayTrigger")]
 	public class SetStReflectionFallDelayTrigger : Trigger {
-		private static bool customReflectionFallDelayEnabled = false;
-		private static int customReflectionFallDelay;
+		private readonly int delay;
+
+		private bool playerInside = false;
 
 		public SetStReflectionFallDelayTrigger(EntityData data, Vector2 offset) : base(data, offset) {
-			customReflectionFallDelay = data.Int("delay");
+			delay = data.Int("delay");
 		}
 
 		public static void Load() {
-			On.Celeste.Player.ReflectionFallCoroutine += customReflectionFallCoroutine;
+			On.Celeste.Player.ReflectionFallCoroutine += reflectionFallCoroutine;
 		}
 
 		public static void Unload() {
-			On.Celeste.Player.ReflectionFallCoroutine -= customReflectionFallCoroutine;
+			On.Celeste.Player.ReflectionFallCoroutine -= reflectionFallCoroutine;
 		}
 
-		private static IEnumerator customReflectionFallCoroutine(On.Celeste.Player.orig_ReflectionFallCoroutine orig, Player player) {
-			if (customReflectionFallDelayEnabled) {
-				player.Sprite.Play("bigFall");
+		private static IEnumerator reflectionFallCoroutine(On.Celeste.Player.orig_ReflectionFallCoroutine orig, Player self) {
+			SetStReflectionFallDelayTrigger trigger = self.level.Tracker.GetEntities<SetStReflectionFallDelayTrigger>().OfType<SetStReflectionFallDelayTrigger>().FirstOrDefault(t => t.playerInside);
+			if (trigger != null) {
+				self.Sprite.Play("bigFall");
 
 				// wait before entering
-				for (int i = 0; i < customReflectionFallDelay; i++) {
-					player.Speed.Y = 0f;
+				for (int i = 0; i < trigger.delay; i++) {
+					self.Speed.Y = 0f;
 					yield return null;
 				}
 
 				// start falling at max speed
 				FallEffects.Show(true);
-				player.Speed.Y = 320f;
+				self.Speed.Y = 320f;
 
 				// wait for water
-				while (!player.Scene.CollideCheck<Water>(player.Position)) {
+				while (!self.Scene.CollideCheck<Water>(self.Position)) {
 					yield return null;
 				}
 				Input.Rumble(RumbleStrength.Strong, RumbleLength.Medium);
 
 				FallEffects.Show(false);
-				player.Sprite.Play("bigFallRecover");
+				self.Sprite.Play("bigFallRecover");
 
-				player.StateMachine.State = 0;
+				self.StateMachine.State = 0;
 			} else {
-				yield return new SwapImmediately(orig(player));
+				yield return new SwapImmediately(orig(self));
 			}
 		}
 
 		public override void OnEnter(Player player) {
 			base.OnEnter(player);
 
-			customReflectionFallDelayEnabled = true;
+			playerInside = true;
 		}
 
 		public override void OnLeave(Player player) {
 			base.OnLeave(player);
 
-			customReflectionFallDelayEnabled = false;
+			playerInside = false;
 		}
 	}
 }

@@ -5,7 +5,7 @@ trigger.triggerText = "Freeze Player If In StDummy"
 trigger.placements = {
 	name = "trigger",
 	data = {
-		preserveSpeed = false,
+		preserveSpeed = false
 	}
 }
 

@@ -33,6 +33,7 @@ public class SleepyHelper : EverestModule {
 			Logger.Log(LogLevel.Info, "SleepyHelper", "ChroniaHelper 1.27.0+ not found -- Non-Stretched Custom Rain will not work.");
 		}
 
+		ForceInputsTrigger.Load();
 		NoDeathTrigger.Load();
 		SetStReflectionFallDelayTrigger.Load();
 		StClimbDoesntKillSpeedTrigger.Load();
@@ -46,6 +47,7 @@ public class SleepyHelper : EverestModule {
 			Everest.Events.Level.OnLoadBackdrop -= levelOnLoadBackdrop;
 		}
 
+		ForceInputsTrigger.Unload();
 		NoDeathTrigger.Unload();
 		SetStReflectionFallDelayTrigger.Unload();
 		StClimbDoesntKillSpeedTrigger.Unload();

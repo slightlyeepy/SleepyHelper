@@ -45,12 +45,12 @@ namespace Celeste.Mod.SleepyHelper {
 			}
 		}
 
-		private string colorGradeA;
-		private string colorGradeB;
-		private PositionModes direction;
-		private bool evenDuringReflectionFall;
-		private string flag;
-		private bool inverted;
+		private readonly string colorGradeA;
+		private readonly string colorGradeB;
+		private readonly PositionModes direction;
+		private readonly bool evenDuringReflectionFall;
+		private readonly string flag;
+		private readonly bool inverted;
 
 		private bool playerInside = false;
 

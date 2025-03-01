@@ -4,7 +4,8 @@ using Microsoft.Xna.Framework;
 namespace Celeste.Mod.SleepyHelper {
 	[CustomEntity("SleepyHelper/FreezePlayerIfInStDummyTrigger")]
 	public class FreezePlayerIfInStDummyTrigger : Trigger {
-		private bool preserveSpeed = false;
+		private readonly bool preserveSpeed = false;
+
 		private Vector2 preservedSpeed;
 		private bool preservedSpeedSet = false;
 		private bool preservedSpeedRestored = false;

@@ -7,8 +7,8 @@ namespace Celeste.Mod.SleepyHelper {
 	[CustomEntity("SleepyHelper/FlagNoDeathTrigger")]
 	[Tracked]
 	public class FlagNoDeathTrigger : Trigger {
-		private string flag;
-		private bool inverted;
+		private readonly string flag;
+		private readonly bool inverted;
 
 		private bool playerInside = false;
 

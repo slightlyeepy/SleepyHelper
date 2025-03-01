@@ -5,7 +5,7 @@ trigger.triggerText = "Set StReflectionFall Delay"
 trigger.placements = {
 	name = "trigger",
 	data = {
-		delay = 0,
+		delay = 0
 	}
 }
 

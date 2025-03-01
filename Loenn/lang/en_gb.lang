@@ -7,6 +7,10 @@ mods.SleepyHelper.name=sleepy helper
 style.effects.SleepyHelper/NonStretchedCustomRain.name=Non-Stretched Custom Rain
 
 # triggers
+triggers.SleepyHelper/ForceInputsTrigger.placements.name.trigger=Force Inputs
+triggers.SleepyHelper/ForceInputsTrigger.attributes.description.inputs=List of comma-separated inputs, formatted similarly to a TAS (e.g "R,U,X"). An input can be prefixed with ! to force releasing it. Supported inputs: LRUDJXZG
+triggers.SleepyHelper/ForceInputsTrigger.attributes.description.showTooltip=Whether a tooltip should be shown while the player is inside the trigger.
+
 triggers.SleepyHelper/FreezePlayerIfInStDummyTrigger.placements.name.trigger=Freeze Player If In StDummy
 triggers.SleepyHelper/FreezePlayerIfInStDummyTrigger.attributes.description.preserveSpeed=Whether the player's speed should be saved upon entering StDummy and restored upon leaving it.
 
@@ -16,6 +20,12 @@ triggers.SleepyHelper/NoDeathTrigger.placements.name.trigger=No Death
 
 triggers.SleepyHelper/SetStReflectionFallDelayTrigger.placements.name.trigger=Set StReflectionFall Delay
 triggers.SleepyHelper/SetStReflectionFallDelayTrigger.attributes.description.delay=Delay in frames before you start falling.
+
+triggers.SleepyHelper/SetTimeRateTrigger.placements.name.trigger=Set TimeRate
+triggers.SleepyHelper/SetTimeRateTrigger.attributes.description.timeRate=New Engine.TimeRate value.
+
+triggers.SleepyHelper/ShowTooltipWhileInAreaTrigger.placements.name.trigger=Show Tooltip While In Area
+triggers.SleepyHelper/ShowTooltipWhileInAreaTrigger.attributes.description.tooltipText=Text to show as the tooltip.
 
 triggers.SleepyHelper/StClimbDoesntKillSpeedTrigger.placements.name.trigger=StClimb Doesn't Kill Speed
 triggers.SleepyHelper/StClimbDoesntKillSpeedTrigger.attributes.placements.name.useRetained=Use Retained Speed If 0

@@ -6,7 +6,8 @@ trigger.placements = {
 	name = "trigger",
 	data = {
 		inputs = "",
-		showTooltip = false
+		showTooltip = false,
+		hideTooltipInCutscenes = false
 	}
 }
 

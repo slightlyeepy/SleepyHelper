@@ -13,6 +13,8 @@ namespace Celeste.Mod.SleepyHelper {
 
 		private readonly string message;
 
+		public bool ShouldRender = true;
+
 		public Tooltip(string message) {
 			this.message = message;
 			Vector2 messageSize = ActiveFont.Measure(message);
@@ -23,7 +25,9 @@ namespace Celeste.Mod.SleepyHelper {
 		public override void Render() {
 			base.Render();
 
-			ActiveFont.DrawOutline(message, Position, Vector2.Zero, Vector2.One, Color.White, 2, Color.Black);
+			if (ShouldRender) {
+				ActiveFont.DrawOutline(message, Position, Vector2.Zero, Vector2.One, Color.White, 2, Color.Black);
+			}
 		}
 	}
 }

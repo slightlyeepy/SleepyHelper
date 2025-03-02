@@ -24,6 +24,7 @@ namespace Celeste.Mod.SleepyHelper {
 		private readonly string inputstring;
 		private readonly string[] inputs;
 		private readonly bool showTooltip;
+		private readonly bool hideTooltipInCutscenes;
 		private Tooltip tooltip;
 
 		private bool playerInside = false;
@@ -33,6 +34,7 @@ namespace Celeste.Mod.SleepyHelper {
 		public ForceInputsTrigger(EntityData data, Vector2 offset) : base(data, offset) {
 			inputstring = data.Attr("inputs");
 			showTooltip = data.Bool("showTooltip");
+			hideTooltipInCutscenes = data.Bool("hideTooltipInCutscenes");
 
 			inputs = inputstring.ToLower().Split(',', StringSplitOptions.RemoveEmptyEntries);
 			validateInputs();
@@ -107,13 +109,19 @@ namespace Celeste.Mod.SleepyHelper {
 		private static void playerUpdate(On.Celeste.Player.orig_Update orig, Player self) {
 			ForceInputsTrigger trigger = self.level.Tracker.GetEntities<ForceInputsTrigger>().OfType<ForceInputsTrigger>().FirstOrDefault(t => t.playerInside);
 			if (trigger != null) {
+				if (trigger.showTooltip && trigger.hideTooltipInCutscenes && trigger.tooltip != null) {
+					trigger.tooltip.ShouldRender = (self.StateMachine.State != Player.StDummy);
+				}
+
 				Vector2 oldAim = Input.Aim;
 				int oldMoveX = Input.MoveX.Value;
 				int oldMoveY = Input.MoveY.Value;
+				int oldGliderMoveY = Input.GliderMoveY.Value;
 
 				Vector2 newAim = Input.Aim;
 				int newMoveX = Input.MoveX.Value;
 				int newMoveY = Input.MoveY.Value;
+				int newGliderMoveY = Input.GliderMoveY.Value;
 
 				int i;
 				foreach (string input in trigger.inputs) {
@@ -146,10 +154,13 @@ namespace Celeste.Mod.SleepyHelper {
 							// force press up
 							newAim.Y = -1.0f;
 							newMoveY = -1;
+							newGliderMoveY = -1;
+
 						} else {
 							// force release up
 							newAim.Y = Math.Max(0, newAim.Y);
 							newMoveY = Math.Max(0, newMoveY);
+							newGliderMoveY = Math.Max(0, newGliderMoveY);
 						}
 						break;
 					case 'd':
@@ -157,10 +168,12 @@ namespace Celeste.Mod.SleepyHelper {
 							// force press down
 							newAim.Y = 1.0f;
 							newMoveY = 1;
+							newGliderMoveY = 1;
 						} else {
 							// force release down
 							newAim.Y = Math.Min(0, newAim.Y);
 							newMoveY = Math.Min(0, newMoveY);
+							newGliderMoveY = Math.Min(0, newGliderMoveY);
 						}
 						break;
 					}
@@ -169,12 +182,14 @@ namespace Celeste.Mod.SleepyHelper {
 				new DynData<VirtualJoystick>(Input.Aim)["Value"] = newAim;
 				Input.MoveX.Value = newMoveX;
 				Input.MoveY.Value = newMoveY;
+				Input.GliderMoveY.Value = newGliderMoveY;
 
 				orig(self);
 
 				new DynData<VirtualJoystick>(Input.Aim)["Value"] = oldAim;
 				Input.MoveX.Value = oldMoveX;
 				Input.MoveY.Value = oldMoveY;
+				Input.GliderMoveY.Value = oldGliderMoveY;
 			} else {
 				orig(self);
 			}

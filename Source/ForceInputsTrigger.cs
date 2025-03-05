@@ -28,7 +28,6 @@ namespace Celeste.Mod.SleepyHelper {
 		private Tooltip tooltip;
 
 		private bool playerInside = false;
-		private bool playerJustEntered = false;
 		private bool playerLeft = false;
 
 		public ForceInputsTrigger(EntityData data, Vector2 offset) : base(data, offset) {
@@ -80,12 +79,12 @@ namespace Celeste.Mod.SleepyHelper {
 		public static void Load() {
 			On.Celeste.Player.Update += playerUpdate;
 
-			buttonCheckHook = new Hook(typeof(VirtualButton).GetMethod("get_Check"), typeof(ForceInputsTrigger).GetMethod("onButtonCheck", BindingFlags.NonPublic | BindingFlags.Static));
-			buttonPressedHook = new Hook(typeof(VirtualButton).GetMethod("get_Pressed"), typeof(ForceInputsTrigger).GetMethod("onButtonPressed", BindingFlags.NonPublic | BindingFlags.Static));
-			buttonReleasedHook = new Hook(typeof(VirtualButton).GetMethod("get_Released"), typeof(ForceInputsTrigger).GetMethod("onButtonReleased", BindingFlags.NonPublic | BindingFlags.Static));
-			grabCheckHook = new Hook(typeof(Input).GetMethod("get_GrabCheck"), typeof(ForceInputsTrigger).GetMethod("modGrabResult", BindingFlags.NonPublic | BindingFlags.Static));
-			dashPressedHook = new Hook(typeof(Input).GetMethod("get_DashPressed"), typeof(ForceInputsTrigger).GetMethod("modDashResult", BindingFlags.NonPublic | BindingFlags.Static));
-			crouchDashPressedHook = new Hook(typeof(Input).GetMethod("get_CrouchDashPressed"), typeof(ForceInputsTrigger).GetMethod("modCrouchDashResult", BindingFlags.NonPublic | BindingFlags.Static));
+			buttonCheckHook = new Hook(typeof(VirtualButton).GetProperty("Check").GetGetMethod(), typeof(ForceInputsTrigger).GetMethod("onButtonCheckOrPressed", BindingFlags.NonPublic | BindingFlags.Static));
+			buttonPressedHook = new Hook(typeof(VirtualButton).GetProperty("Pressed").GetGetMethod(), typeof(ForceInputsTrigger).GetMethod("onButtonCheckOrPressed", BindingFlags.NonPublic | BindingFlags.Static));
+			buttonReleasedHook = new Hook(typeof(VirtualButton).GetProperty("Released").GetGetMethod(), typeof(ForceInputsTrigger).GetMethod("onButtonReleased", BindingFlags.NonPublic | BindingFlags.Static));
+			grabCheckHook = new Hook(typeof(Input).GetProperty("GrabCheck").GetGetMethod(), typeof(ForceInputsTrigger).GetMethod("modGrabResult", BindingFlags.NonPublic | BindingFlags.Static));
+			dashPressedHook = new Hook(typeof(Input).GetProperty("DashPressed").GetGetMethod(), typeof(ForceInputsTrigger).GetMethod("modDashResult", BindingFlags.NonPublic | BindingFlags.Static));
+			crouchDashPressedHook = new Hook(typeof(Input).GetProperty("CrouchDashPressed").GetGetMethod(), typeof(ForceInputsTrigger).GetMethod("modCrouchDashResult", BindingFlags.NonPublic | BindingFlags.Static));
 		}
 
 		public static void Unload() {
@@ -234,25 +233,11 @@ namespace Celeste.Mod.SleepyHelper {
 			return null;
 		}
 
-		private static bool onButtonCheck(Func<VirtualButton, bool> orig, VirtualButton self) {
+		private static bool onButtonCheckOrPressed(Func<VirtualButton, bool> orig, VirtualButton self) {
 			ForceInputsTrigger trigger = Engine.Scene.Tracker.GetEntities<ForceInputsTrigger>().OfType<ForceInputsTrigger>().FirstOrDefault(t => t.playerInside);
 			if (trigger != null) {
 				bool? overrideInput = checkButtonOverride(trigger.inputs, self);
 				return overrideInput ?? orig(self);
-			}
-
-			return orig(self);
-		}
-
-		private static bool onButtonPressed(Func<VirtualButton, bool> orig, VirtualButton self) {
-			ForceInputsTrigger trigger = Engine.Scene.Tracker.GetEntities<ForceInputsTrigger>().OfType<ForceInputsTrigger>().FirstOrDefault(t => t.playerInside);
-			if (trigger != null) {
-				bool? overrideInput = checkButtonOverride(trigger.inputs, self);
-				if (overrideInput == false) {
-					return false;
-				} else if (overrideInput == true && trigger.playerJustEntered) {
-					return true;
-				}
 			}
 
 			return orig(self);
@@ -288,7 +273,6 @@ namespace Celeste.Mod.SleepyHelper {
 			base.OnEnter(player);
 
 			playerInside = true;
-			playerJustEntered = true;
 
 			if (showTooltip) {
 				tooltip = new Tooltip($"force inputs: {inputstring}");
@@ -298,8 +282,6 @@ namespace Celeste.Mod.SleepyHelper {
 
 		public override void OnStay(Player player) {
 			base.OnStay(player);
-
-			playerJustEntered = false;
 		}
 
 		public override void OnLeave(Player player) {

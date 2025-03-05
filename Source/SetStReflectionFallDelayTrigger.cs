@@ -48,7 +48,8 @@ namespace Celeste.Mod.SleepyHelper {
 
 				self.StateMachine.State = 0;
 			} else {
-				yield return new SwapImmediately(orig(self));
+				IEnumerator origEnum = orig(self);
+				while (origEnum.MoveNext()) yield return origEnum.Current;
 			}
 		}
 

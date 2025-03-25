@@ -10,12 +10,23 @@ namespace Celeste.Mod.SleepyHelper {
 	[CustomEntity("SleepyHelper/FlagToggleColorGradeFadeTrigger")]
 	[Tracked]
 	public class FlagToggleColorGradeFadeTrigger : Trigger {
+		public static bool HooksLoaded = false;
+
+		public override void Awake(Scene scene) {
+			base.Awake(scene);
+
+			if (!HooksLoaded)
+				Load();
+		}
+
 		public static void Load() {
 			On.Celeste.Level.Update += onLevelUpdate;
+			HooksLoaded = true;
 		}
 
 		public static void Unload() {
 			On.Celeste.Level.Update -= onLevelUpdate;
+			HooksLoaded = false;
 		}
 
 		private static void onLevelUpdate(On.Celeste.Level.orig_Update orig, Level self) {

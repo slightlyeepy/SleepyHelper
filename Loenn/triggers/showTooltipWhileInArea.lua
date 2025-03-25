@@ -1,12 +1,10 @@
-local trigger = {}
-
-trigger.name = "SleepyHelper/ShowTooltipWhileInAreaTrigger"
-trigger.triggerText = "Show Tooltip While In Area"
-trigger.placements = {
-	name = "trigger",
-	data = {
-		tooltipText = ""
+return {
+	name = "SleepyHelper/ShowTooltipWhileInAreaTrigger",
+	triggerText = "Show Tooltip While In Area",
+	placements = {
+		name = "trigger",
+		data = {
+			tooltipText = ""
+		}
 	}
 }
-
-return trigger

@@ -1,11 +1,14 @@
 using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
+using Monocle;
 using System.Collections;
 using System.Linq;
 
 namespace Celeste.Mod.SleepyHelper {
 	[CustomEntity("SleepyHelper/SetStReflectionFallDelayTrigger")]
 	public class SetStReflectionFallDelayTrigger : Trigger {
+		public static bool HooksLoaded = false;
+
 		private readonly int delay;
 
 		private bool playerInside = false;
@@ -14,12 +17,21 @@ namespace Celeste.Mod.SleepyHelper {
 			delay = data.Int("delay");
 		}
 
+		public override void Awake(Scene scene) {
+			base.Awake(scene);
+
+			if (!HooksLoaded)
+				Load();
+		}
+
 		public static void Load() {
 			On.Celeste.Player.ReflectionFallCoroutine += reflectionFallCoroutine;
+			HooksLoaded = true;
 		}
 
 		public static void Unload() {
 			On.Celeste.Player.ReflectionFallCoroutine -= reflectionFallCoroutine;
+			HooksLoaded = false;
 		}
 
 		private static IEnumerator reflectionFallCoroutine(On.Celeste.Player.orig_ReflectionFallCoroutine orig, Player self) {
@@ -38,9 +50,8 @@ namespace Celeste.Mod.SleepyHelper {
 				self.Speed.Y = 320f;
 
 				// wait for water
-				while (!self.Scene.CollideCheck<Water>(self.Position)) {
+				while (!self.Scene.CollideCheck<Water>(self.Position))
 					yield return null;
-				}
 				Input.Rumble(RumbleStrength.Strong, RumbleLength.Medium);
 
 				FallEffects.Show(false);
@@ -49,7 +60,8 @@ namespace Celeste.Mod.SleepyHelper {
 				self.StateMachine.State = 0;
 			} else {
 				IEnumerator origEnum = orig(self);
-				while (origEnum.MoveNext()) yield return origEnum.Current;
+				while (origEnum.MoveNext())
+					yield return origEnum.Current;
 			}
 		}
 

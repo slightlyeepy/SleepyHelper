@@ -1,8 +1,9 @@
-using ChroniaHelper.Effects;
 using Microsoft.Xna.Framework;
 using Monocle;
 using System;
 using System.Collections.Generic;
+
+using ChroniaHelper.Effects;
 
 namespace Celeste.Mod.SleepyHelper {
 	public class NonStretchedCustomRain : ChroniaHelper.Effects.CustomRain {

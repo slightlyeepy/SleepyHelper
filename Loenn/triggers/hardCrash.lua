@@ -1,9 +1,7 @@
-local trigger = {}
-
-trigger.name = "SleepyHelper/HardCrashTrigger"
-trigger.triggerText = "Hard Crash"
-trigger.placements = {
-	name = "trigger"
+return {
+	name = "SleepyHelper/HardCrashTrigger",
+	triggerText = "Hard Crash",
+	placements = {
+		name = "trigger"
+	}
 }
-
-return trigger

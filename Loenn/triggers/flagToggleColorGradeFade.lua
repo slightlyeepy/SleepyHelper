@@ -1,37 +1,33 @@
 -- This file uses code from Maddie's Helping Hand -- see LICENSE.MaddiesHelpingHand file.
 
-local trigger = {}
+local celesteEnums = require("consts.celeste_enums")
+local colorgrades = celesteEnums.color_grades
 
-local colorGrades = {
-	"none", "oldsite", "panicattack", "templevoid", "reflection", "credits", "cold", "hot", "feelingdown", "golden"
-}
-
-trigger.name = "SleepyHelper/FlagToggleColorGradeFadeTrigger"
-trigger.category = "visual"
-trigger.triggerText = "Flag Toggle Color Grade Fade"
-trigger.placements = {
-	name = "trigger",
-	data = {
-		colorGradeA = "none",
-		colorGradeB = "none",
-		direction = "LeftToRight",
-		flag = "flag_toggle_color_grade_fade",
-		inverted = false,
-		evenDuringReflectionFall = false
+return {
+	name = "SleepyHelper/FlagToggleColorGradeFadeTrigger",
+	category = "visual",
+	triggerText = "Flag Toggle Color Grade Fade",
+	placements = {
+		name = "trigger",
+		data = {
+			colorGradeA = "none",
+			colorGradeB = "none",
+			direction = "LeftToRight",
+			flag = "flag_toggle_color_grade_fade",
+			inverted = false,
+			evenDuringReflectionFall = false
+		}
+	},
+	fieldInformation = {
+		colorGradeA = {
+			options = colorgrades
+		},
+		colorGradeB = {
+			options = colorgrades
+		},
+		direction = {
+			options = { "LeftToRight", "TopToBottom" },
+			editable = false
+		}
 	}
 }
-
-trigger.fieldInformation = {
-	colorGradeA = {
-		options = colorGrades
-	},
-	colorGradeB = {
-		options = colorGrades
-	},
-	direction = {
-		options = { "LeftToRight", "TopToBottom" },
-		editable = false
-	}
-}
-
-return trigger

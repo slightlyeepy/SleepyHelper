@@ -25,9 +25,8 @@ namespace Celeste.Mod.SleepyHelper {
 		public override void Render() {
 			base.Render();
 
-			if (ShouldRender) {
+			if (ShouldRender)
 				ActiveFont.DrawOutline(message, Position, Vector2.Zero, Vector2.One, Color.White, 2, Color.Black);
-			}
 		}
 	}
 }

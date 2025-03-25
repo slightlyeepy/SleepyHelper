@@ -19,7 +19,8 @@
     <ItemGroup>
         <PackageReference Include="MonoMod.RuntimeDetour" Version="25.0.2" PrivateAssets="all" ExcludeAssets="runtime" />
         <PackageReference Include="MonoMod.Patcher" Version="25.0.0-prerelease.2" />
-        <PackageReference Include="CelesteAnalyzer" Version="*" />
+	<PackageReference Include="CelesteAnalyzer" Version="*" />
+	<PackageReference Include="YamlDotNet" Version="16.3.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -27,6 +28,7 @@
         <Reference Include="$(CelestePrefix)\MMHOOK_Celeste.dll" Private="false" />
 	<Reference Include="$(CelestePrefix)\FNA.dll" Private="false" />
 	<Reference Include="ChroniaHelper" HintPath="..\lib-stripped\ChroniaHelper.dll" Private="false" />
+	<Reference Include="MaxHelpingHand" HintPath="..\lib-stripped\MaxHelpingHand.dll" Private="false" />
     </ItemGroup>
 
     <Target Name="CopyFiles" AfterTargets="Build" Inputs="$(OutputPath)\$(AssemblyName).dll;$(OutputPath)\$(AssemblyName).pdb" Outputs="..\bin\$(AssemblyName).dll;..\bin\$(AssemblyName).pdb">

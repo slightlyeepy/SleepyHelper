@@ -14,6 +14,10 @@ namespace Celeste.Mod.SleepyHelper {
 	[CustomEntity("SleepyHelper/ForceInputsTrigger")]
 	[Tracked]
 	public class ForceInputsTrigger : Trigger {
+		public static bool HooksLoaded = false;
+
+		private static bool hooksEnabled = false;
+
 		private static Hook buttonCheckHook;
 		private static Hook buttonPressedHook;
 		private static Hook buttonReleasedHook;
@@ -46,23 +50,20 @@ namespace Celeste.Mod.SleepyHelper {
 			int i;
 			foreach (string input in inputs) {
 				i = (input[0] == '!') ? 1 : 0;
-				if (seen.Contains(input[i])) {
+				if (seen.Contains(input[i]))
 					throw new Exception("Force Inputs Trigger: invalid inputs - can't have same input twice, or same input force pressed and force released!");
-				}
 				seen.Add(input[i]);
 				switch (input[i]) {
 				case 'l':
 				case 'r':
-					if (seenH && input[0] != '!') {
+					if (seenH && input[0] != '!')
 						throw new Exception("Force Inputs Trigger: invalid inputs - can't force both left & right!");
-					}
 					seenH = true;
 					break;
 				case 'u':
 				case 'd':
-					if (seenV && input[0] != '!') {
+					if (seenV && input[0] != '!')
 						throw new Exception("Force Inputs Trigger: invalid inputs - can't force both up & down!");
-					}
 					seenV = true;
 					break;
 				case 'j':
@@ -76,6 +77,13 @@ namespace Celeste.Mod.SleepyHelper {
 			}
 		}
 
+		public override void Awake(Scene scene) {
+			base.Awake(scene);
+
+			if (!HooksLoaded)
+				Load();
+		}
+
 		public static void Load() {
 			On.Celeste.Player.Update += playerUpdate;
 
@@ -85,6 +93,8 @@ namespace Celeste.Mod.SleepyHelper {
 			grabCheckHook = new Hook(typeof(Input).GetProperty("GrabCheck").GetGetMethod(), typeof(ForceInputsTrigger).GetMethod("modGrabResult", BindingFlags.NonPublic | BindingFlags.Static));
 			dashPressedHook = new Hook(typeof(Input).GetProperty("DashPressed").GetGetMethod(), typeof(ForceInputsTrigger).GetMethod("modDashResult", BindingFlags.NonPublic | BindingFlags.Static));
 			crouchDashPressedHook = new Hook(typeof(Input).GetProperty("CrouchDashPressed").GetGetMethod(), typeof(ForceInputsTrigger).GetMethod("modCrouchDashResult", BindingFlags.NonPublic | BindingFlags.Static));
+
+			HooksLoaded = true;
 		}
 
 		public static void Unload() {
@@ -103,14 +113,17 @@ namespace Celeste.Mod.SleepyHelper {
 			grabCheckHook = null;
 			dashPressedHook = null;
 			crouchDashPressedHook = null;
+
+			HooksLoaded = false;
 		}
 
 		private static void playerUpdate(On.Celeste.Player.orig_Update orig, Player self) {
 			ForceInputsTrigger trigger = self.level.Tracker.GetEntities<ForceInputsTrigger>().OfType<ForceInputsTrigger>().FirstOrDefault(t => t.playerInside);
 			if (trigger != null) {
-				if (trigger.showTooltip && trigger.hideTooltipInCutscenes && trigger.tooltip != null) {
+				hooksEnabled = true;
+
+				if (trigger.showTooltip && trigger.hideTooltipInCutscenes && trigger.tooltip != null)
 					trigger.tooltip.ShouldRender = (self.StateMachine.State != Player.StDummy);
-				}
 
 				Vector2 oldAim = Input.Aim;
 				int oldMoveX = Input.MoveX.Value;
@@ -189,6 +202,8 @@ namespace Celeste.Mod.SleepyHelper {
 				Input.MoveX.Value = oldMoveX;
 				Input.MoveY.Value = oldMoveY;
 				Input.GliderMoveY.Value = oldGliderMoveY;
+
+				hooksEnabled = false;
 			} else {
 				orig(self);
 			}
@@ -200,24 +215,20 @@ namespace Celeste.Mod.SleepyHelper {
 				i = (input[0] == '!') ? 1 : 0;
 				switch (input[i]) {
 				case 'j':
-					if (button == Input.Jump) {
+					if (button == Input.Jump)
 						return (input[0] != '!');
-					}
 					break;
 				case 'x':
-					if (button == Input.Dash) {
+					if (button == Input.Dash)
 						return (input[0] != '!');
-					}
 					break;
 				case 'z':
-					if (button == Input.CrouchDash) {
+					if (button == Input.CrouchDash)
 						return (input[0] != '!');
-					}
 					break;
 				case 'g':
-					if (button == Input.Grab) {
+					if (button == Input.Grab)
 						return (input[0] != '!');
-					}
 					break;
 				}
 			}
@@ -225,48 +236,60 @@ namespace Celeste.Mod.SleepyHelper {
 		}
 
 		private static bool? checkInputOverride(string[] inputs, char input) {
-			if (inputs.Contains(input.ToString())) {
+			if (inputs.Contains(input.ToString()))
 				return true;
-			} else if (inputs.Contains("!" + input)) {
+			else if (inputs.Contains("!" + input))
 				return false;
-			}
 			return null;
 		}
 
 		private static bool onButtonCheckOrPressed(Func<VirtualButton, bool> orig, VirtualButton self) {
-			ForceInputsTrigger trigger = Engine.Scene.Tracker.GetEntities<ForceInputsTrigger>().OfType<ForceInputsTrigger>().FirstOrDefault(t => t.playerInside);
-			if (trigger != null) {
-				bool? overrideInput = checkButtonOverride(trigger.inputs, self);
-				return overrideInput ?? orig(self);
+			if (hooksEnabled) {
+				ForceInputsTrigger trigger = Engine.Scene.Tracker.GetEntities<ForceInputsTrigger>().OfType<ForceInputsTrigger>().FirstOrDefault(t => t.playerInside);
+				if (trigger != null) {
+					bool? overrideInput = checkButtonOverride(trigger.inputs, self);
+					return overrideInput ?? orig(self);
+				}
 			}
 
 			return orig(self);
 		}
 
 		private static bool onButtonReleased(Func<VirtualButton, bool> orig, VirtualButton self) {
-			ForceInputsTrigger trigger = Engine.Scene.Tracker.GetEntities<ForceInputsTrigger>().OfType<ForceInputsTrigger>().FirstOrDefault(t => t.playerLeft);
-			if (trigger != null) {
-				trigger.playerLeft = false;
-				bool? overrideInput = checkButtonOverride(trigger.inputs, self);
-				return overrideInput ?? orig(self);
+			if (hooksEnabled) {
+				ForceInputsTrigger trigger = Engine.Scene.Tracker.GetEntities<ForceInputsTrigger>().OfType<ForceInputsTrigger>().FirstOrDefault(t => t.playerLeft);
+				if (trigger != null) {
+					trigger.playerLeft = false;
+					bool? overrideInput = checkButtonOverride(trigger.inputs, self);
+					return overrideInput ?? orig(self);
+				}
 			}
 
 			return orig(self);
 		}
 
 		private static bool modGrabResult(Func<bool> orig) {
-			ForceInputsTrigger trigger = Engine.Scene.Tracker.GetEntities<ForceInputsTrigger>().OfType<ForceInputsTrigger>().FirstOrDefault(t => t.playerInside);
-			return (trigger != null) ? (checkInputOverride(trigger.inputs, 'g') ?? orig()) : orig();
+			if (hooksEnabled) {
+				ForceInputsTrigger trigger = Engine.Scene.Tracker.GetEntities<ForceInputsTrigger>().OfType<ForceInputsTrigger>().FirstOrDefault(t => t.playerInside);
+				return (trigger != null) ? (checkInputOverride(trigger.inputs, 'g') ?? orig()) : orig();
+			}
+			return orig();
 		}
 
 		private static bool modDashResult(Func<bool> orig) {
-			ForceInputsTrigger trigger = Engine.Scene.Tracker.GetEntities<ForceInputsTrigger>().OfType<ForceInputsTrigger>().FirstOrDefault(t => t.playerInside);
-			return (trigger != null) ? (checkInputOverride(trigger.inputs, 'x') ?? orig()) : orig();
+			if (hooksEnabled) {
+				ForceInputsTrigger trigger = Engine.Scene.Tracker.GetEntities<ForceInputsTrigger>().OfType<ForceInputsTrigger>().FirstOrDefault(t => t.playerInside);
+				return (trigger != null) ? (checkInputOverride(trigger.inputs, 'x') ?? orig()) : orig();
+			}
+			return orig();
 		}
 
 		private static bool modCrouchDashResult(Func<bool> orig) {
-			ForceInputsTrigger trigger = Engine.Scene.Tracker.GetEntities<ForceInputsTrigger>().OfType<ForceInputsTrigger>().FirstOrDefault(t => t.playerInside);
-			return (trigger != null) ? (checkInputOverride(trigger.inputs, 'z') ?? orig()) : orig();
+			if (hooksEnabled) {
+				ForceInputsTrigger trigger = Engine.Scene.Tracker.GetEntities<ForceInputsTrigger>().OfType<ForceInputsTrigger>().FirstOrDefault(t => t.playerInside);
+				return (trigger != null) ? (checkInputOverride(trigger.inputs, 'z') ?? orig()) : orig();
+			}
+			return orig();
 		}
 
 		public override void OnEnter(Player player) {
@@ -278,10 +301,6 @@ namespace Celeste.Mod.SleepyHelper {
 				tooltip = new Tooltip($"force inputs: {inputstring}");
 				player.level.Add(tooltip);
 			}
-		}
-
-		public override void OnStay(Player player) {
-			base.OnStay(player);
 		}
 
 		public override void OnLeave(Player player) {

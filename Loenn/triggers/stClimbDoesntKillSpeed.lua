@@ -1,12 +1,10 @@
-local trigger = {}
-
-trigger.name = "SleepyHelper/StClimbDoesntKillSpeedTrigger"
-trigger.triggerText = "StClimb Doesnt Kill Speed"
-trigger.placements = {
-	name = "trigger",
-	data = {
-		useRetained = false
+return {
+	name = "SleepyHelper/StClimbDoesntKillSpeedTrigger",
+	triggerText = "StClimb Doesnt Kill Speed",
+	placements = {
+		name = "trigger",
+		data = {
+			useRetained = false
+		}
 	}
 }
-
-return trigger

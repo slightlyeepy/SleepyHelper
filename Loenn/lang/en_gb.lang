@@ -6,9 +6,20 @@ mods.SleepyHelper.name=sleepy helper
 # effects
 style.effects.SleepyHelper/NonStretchedCustomRain.name=Non-Stretched Custom Rain
 
+# entities
+entities.SleepyHelper/AnyEntityCanTriggerTouchSwitchesController.placements.name.entity=Any Entity Can Trigger Touch Switches Controller
+
+entities.SleepyHelper/ForceGrabController.placements.name.entity=Force Grab Controller
+
+entities.SleepyHelper/FlagCustomInvisibleBarrier.placements.name.entity=Custom Invisible Barrier (Flag-Toggled)
+entities.SleepyHelper/FlagCustomInvisibleBarrier.attributes.description.flag=The flag this entity should react to.
+entities.SleepyHelper/FlagCustomInvisibleBarrier.attributes.description.inverted=If checked, the entity will be disabled when the flag is active.\nIf unchecked, the entity will be enabled when the flag is active.
+
 # triggers
+triggers.SleepyHelper/DisableDialogueConfirmTrigger.placements.name.trigger=Disable Dialogue Confirm
+
 triggers.SleepyHelper/ForceInputsTrigger.placements.name.trigger=Force Inputs
-triggers.SleepyHelper/ForceInputsTrigger.attributes.description.inputs=List of comma-separated inputs, formatted similarly to a TAS (e.g "R,U,X"). An input can be prefixed with ! to force releasing it. Supported inputs: LRUDJXZG
+triggers.SleepyHelper/ForceInputsTrigger.attributes.description.inputs=List of comma-separated inputs, formatted similarly to a TAS (e.g "R,U,X"). An input can be prefixed with ! to force releasing it.\nSupported inputs: LRUDJXZG (in TAS format).
 triggers.SleepyHelper/ForceInputsTrigger.attributes.description.showTooltip=Whether a tooltip should be shown while the player is inside the trigger.
 triggers.SleepyHelper/ForceInputsTrigger.attributes.description.hideTooltipInCutscenes=Use with Show Tooltip - whether the tooltip should be hidden while in a cutscene / bino.
 
@@ -16,6 +27,9 @@ triggers.SleepyHelper/FreezePlayerIfInStDummyTrigger.placements.name.trigger=Fre
 triggers.SleepyHelper/FreezePlayerIfInStDummyTrigger.attributes.description.preserveSpeed=Whether the player's speed should be saved upon entering StDummy and restored upon leaving it.
 
 triggers.SleepyHelper/HardCrashTrigger.placements.name.trigger=Hard Crash
+
+triggers.SleepyHelper/FreezePlayerTrigger.placements.name.trigger=Freeze Player
+triggers.SleepyHelper/FreezePlayerTrigger.attributes.description.freezeTime=The amount of time to freeze the player for.
 
 triggers.SleepyHelper/NoDeathTrigger.placements.name.trigger=No Death
 
@@ -31,6 +45,13 @@ triggers.SleepyHelper/ShowTooltipWhileInAreaTrigger.attributes.description.toolt
 triggers.SleepyHelper/StClimbDoesntKillSpeedTrigger.placements.name.trigger=StClimb Doesn't Kill Speed
 triggers.SleepyHelper/StClimbDoesntKillSpeedTrigger.attributes.placements.name.useRetained=Use Retained Speed If 0
 triggers.SleepyHelper/StClimbDoesntKillSpeedTrigger.attributes.description.useRetained=If checked, retained speed will be used if the player has retained speed and the player's horizontal speed is 0.
+
+triggers.SleepyHelper/TeleportOnDashTrigger.placements.name.trigger=Teleport On Dash
+triggers.SleepyHelper/TeleportOnDashTrigger.attributes.description.freezeDuration=Amount of time (in seconds) to freeze for.
+triggers.SleepyHelper/TeleportOnDashTrigger.attributes.description.flagOnTeleport=Flag to set on teleport. DOES NOT GET UNSET AUTOMATICALLY. Leave empty to disable setting a flag.
+
+triggers.SleepyHelper/TurnOnFlagTouchSwitchesTrigger.placements.name.trigger=Turn On Flag Touch Switches
+triggers.SleepyHelper/TurnOnFlagTouchSwitchesTrigger.attributes.description.flagToTurnOn=All flag touch switches in the room that would normally set this flag will be turned on.
 
 triggers.SleepyHelper/FlagNoDeathTrigger.placements.name.trigger=Flag No Death
 triggers.SleepyHelper/FlagNoDeathTrigger.attributes.description.flag=The flag this trigger should react to.

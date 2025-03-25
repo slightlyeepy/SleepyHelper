@@ -7,6 +7,8 @@ namespace Celeste.Mod.SleepyHelper {
 	[CustomEntity("SleepyHelper/StClimbDoesntKillSpeedTrigger")]
 	[Tracked]
 	public class StClimbDoesntKillSpeedTrigger : Trigger {
+		public static bool HooksLoaded = false;
+
 		private readonly bool useRetained;
 
 		private bool playerInside = false;
@@ -15,23 +17,31 @@ namespace Celeste.Mod.SleepyHelper {
 			useRetained = data.Bool("useRetained");
 		}
 
+		public override void Awake(Scene scene) {
+			base.Awake(scene);
+
+			if (!HooksLoaded)
+				Load();
+		}
+
 		public static void Load() {
 			On.Celeste.Player.ClimbBegin += climbBegin;
+			HooksLoaded = true;
 		}
 
 		public static void Unload() {
 			On.Celeste.Player.ClimbBegin -= climbBegin;
+			HooksLoaded = false;
 		}
 
 		private static void climbBegin(On.Celeste.Player.orig_ClimbBegin orig, Player player) {
 			StClimbDoesntKillSpeedTrigger trigger = player.level.Tracker.GetEntities<StClimbDoesntKillSpeedTrigger>().OfType<StClimbDoesntKillSpeedTrigger>().FirstOrDefault(t => (t.playerInside));
 			if (trigger != null) {
 				float speedX;
-				if (trigger.useRetained && /* player.wallSpeedRetentionTimer > 0f && */ player.Speed.X == 0) {
+				if (trigger.useRetained && /* player.wallSpeedRetentionTimer > 0f && */ player.Speed.X == 0)
 					speedX = player.wallSpeedRetained;
-				} else {
+				else
 					speedX = player.Speed.X;
-				}
 				orig(player);
 				player.Speed.X = speedX;
 			} else {

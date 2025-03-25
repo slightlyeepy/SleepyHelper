@@ -4,14 +4,14 @@ using Monocle;
 using System.Linq;
 
 namespace Celeste.Mod.SleepyHelper {
-	[CustomEntity("SleepyHelper/NoDeathTrigger")]
+	[CustomEntity("SleepyHelper/DisableDialogueConfirmTrigger")]
 	[Tracked]
-	public class NoDeathTrigger : Trigger {
+	public class DisableDialogueConfirmTrigger : Trigger {
 		public static bool HooksLoaded = false;
 
 		private bool playerInside = false;
 
-		public NoDeathTrigger(EntityData data, Vector2 offset) : base(data, offset) {
+		public DisableDialogueConfirmTrigger(EntityData data, Vector2 offset) : base(data, offset) {
 		}
 
 		public override void Awake(Scene scene) {
@@ -22,18 +22,18 @@ namespace Celeste.Mod.SleepyHelper {
 		}
 
 		public static void Load() {
-			On.Celeste.Player.Die += maybeDie;
+			On.Celeste.Textbox.ContinuePressed += continuePressed;
 			HooksLoaded = true;
 		}
 
 		public static void Unload() {
-			On.Celeste.Player.Die -= maybeDie;
+			On.Celeste.Textbox.ContinuePressed -= continuePressed;
 			HooksLoaded = false;
 		}
 
-		private static PlayerDeadBody maybeDie(On.Celeste.Player.orig_Die orig, Player player, Vector2 direction, bool evenIfInvincible = false, bool registerDeathInStats = true) {
-			NoDeathTrigger trigger = player.level.Tracker.GetEntities<NoDeathTrigger>().OfType<NoDeathTrigger>().FirstOrDefault(t => (t.playerInside));
-			return (trigger != null) ? null : orig(player, direction, evenIfInvincible, registerDeathInStats);
+		private static bool continuePressed(On.Celeste.Textbox.orig_ContinuePressed orig, Textbox self) {
+			DisableDialogueConfirmTrigger trigger = Engine.Scene.Tracker.GetEntities<DisableDialogueConfirmTrigger>().OfType<DisableDialogueConfirmTrigger>().FirstOrDefault(t => (t.playerInside));
+			return (trigger != null) ? false : orig(self);
 		}
 
 		public override void OnEnter(Player player) {
@@ -49,3 +49,4 @@ namespace Celeste.Mod.SleepyHelper {
 		}
 	}
 }
+

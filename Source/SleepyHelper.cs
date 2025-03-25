@@ -27,39 +27,40 @@ public class SleepyHelper : EverestModule {
 
 		ChroniaHelperLoaded = Everest.Loader.DependencyLoaded(chroniaHelper);
 
-		if (ChroniaHelperLoaded) {
+		if (ChroniaHelperLoaded)
 			Everest.Events.Level.OnLoadBackdrop += levelOnLoadBackdrop;
-		} else {
+		else
 			Logger.Log(LogLevel.Info, "SleepyHelper", "ChroniaHelper 1.27.0+ not found -- Non-Stretched Custom Rain will not work.");
-		}
-
-		ForceInputsTrigger.Load();
-		NoDeathTrigger.Load();
-		SetStReflectionFallDelayTrigger.Load();
-		StClimbDoesntKillSpeedTrigger.Load();
-
-		FlagNoDeathTrigger.Load();
-		FlagToggleColorGradeFadeTrigger.Load();
 	}
 
 	public override void Unload() {
-		if (ChroniaHelperLoaded) {
+		if (ChroniaHelperLoaded)
 			Everest.Events.Level.OnLoadBackdrop -= levelOnLoadBackdrop;
-		}
 
-		ForceInputsTrigger.Unload();
-		NoDeathTrigger.Unload();
-		SetStReflectionFallDelayTrigger.Unload();
-		StClimbDoesntKillSpeedTrigger.Unload();
+		if (AnyEntityCanTriggerTouchSwitchesController.HooksLoaded)
+			AnyEntityCanTriggerTouchSwitchesController.Unload();
+		if (DisableDialogueConfirmTrigger.HooksLoaded)
+			DisableDialogueConfirmTrigger.Unload();
+		if (ForceGrabController.HooksLoaded)
+			ForceGrabController.Unload();
+		if (ForceInputsTrigger.HooksLoaded)
+			ForceInputsTrigger.Unload();
+		if (NoDeathTrigger.HooksLoaded)
+			NoDeathTrigger.Unload();
+		if (SetStReflectionFallDelayTrigger.HooksLoaded)
+			SetStReflectionFallDelayTrigger.Unload();
+		if (StClimbDoesntKillSpeedTrigger.HooksLoaded)
+			StClimbDoesntKillSpeedTrigger.Unload();
 
-		FlagNoDeathTrigger.Unload();
-		FlagToggleColorGradeFadeTrigger.Unload();
+		if (FlagNoDeathTrigger.HooksLoaded)
+			FlagNoDeathTrigger.Unload();
+		if (FlagToggleColorGradeFadeTrigger.HooksLoaded)
+			FlagToggleColorGradeFadeTrigger.Unload();
 	}
 
 	private Backdrop levelOnLoadBackdrop(MapData map, BinaryPacker.Element child, BinaryPacker.Element above) {
-		if (child.Name.Equals("SleepyHelper/NonStretchedCustomRain", StringComparison.OrdinalIgnoreCase)) {
+		if (child.Name.Equals("SleepyHelper/NonStretchedCustomRain", StringComparison.OrdinalIgnoreCase))
 			return new NonStretchedCustomRain(new Vector2(child.AttrFloat("scrollx", 0f), child.AttrFloat("scrolly", 0f)), child.AttrFloat("angle", 270f), child.AttrFloat("angleDiff", 3f), child.AttrFloat("speedMult", 1f), child.AttrFloat("scaleMult", 1f), Extensions.AttrInt(child, "amount", 240), child.Attr("colors", "161933"), child.AttrFloat("alpha", 0f));
-		}
 		return null;
 	}
 }

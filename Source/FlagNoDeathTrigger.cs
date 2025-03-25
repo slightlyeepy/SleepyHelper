@@ -7,6 +7,8 @@ namespace Celeste.Mod.SleepyHelper {
 	[CustomEntity("SleepyHelper/FlagNoDeathTrigger")]
 	[Tracked]
 	public class FlagNoDeathTrigger : Trigger {
+		public static bool HooksLoaded = false;
+
 		private readonly string flag;
 		private readonly bool inverted;
 
@@ -17,20 +19,26 @@ namespace Celeste.Mod.SleepyHelper {
 			inverted = data.Bool("inverted");
 		}
 
+		public override void Awake(Scene scene) {
+			base.Awake(scene);
+
+			if (!HooksLoaded)
+				Load();
+		}
+
 		public static void Load() {
 			On.Celeste.Player.Die += maybeDie;
+			HooksLoaded = true;
 		}
 
 		public static void Unload() {
 			On.Celeste.Player.Die -= maybeDie;
+			HooksLoaded = false;
 		}
 
 		private static PlayerDeadBody maybeDie(On.Celeste.Player.orig_Die orig, Player player, Vector2 direction, bool evenIfInvincible = false, bool registerDeathInStats = true) {
 			FlagNoDeathTrigger trigger = player.level.Tracker.GetEntities<FlagNoDeathTrigger>().OfType<FlagNoDeathTrigger>().FirstOrDefault(t => t.playerInside && player.level.Session.GetFlag(t.flag) != t.inverted);
-			if (trigger != null) {
-				return null;
-			}
-			return orig(player, direction, evenIfInvincible, registerDeathInStats);
+			return (trigger != null) ? null : orig(player, direction, evenIfInvincible, registerDeathInStats);
 		}
 
 		public override void OnEnter(Player player) {

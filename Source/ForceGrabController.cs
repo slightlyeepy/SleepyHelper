@@ -88,7 +88,7 @@ namespace Celeste.Mod.SleepyHelper {
 		}
 
 		private static ForceGrabController getController() {
-			// return null if the ForceGrabController type isn't tracked yet. This can happen when the mod is being loaded during runtime
+			// return null if the ForceGrabController type isn't tracked yet. this can happen when the mod is being loaded during runtime
 			if (Engine.Scene == null || !Engine.Scene.Tracker.Entities.ContainsKey(typeof(ForceGrabController)))
 				return null;
 

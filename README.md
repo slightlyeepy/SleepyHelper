@@ -9,7 +9,7 @@ it was made to be used in my own map, but feel free to use it in yours or do any
 - **effects:**
 - Non-Stretched Custom Rain: (ChroniaHelper 1.27.0+ required) [Chronia Helper](https://gamebanana.com/mods/507580)'s `Custom Rain`, except the size of the droplets isn't affected by `Speed Mult`, but instead a new attribute called `Scale Mult`.
 - **entities:**
-- Any Entity Can Trigger Touch Switches Controller: while in a room with this controller, every entity can trigger [Maddie's Helping Hand](https://gamebanana.com/mods/53687) `Flag Touch Switch`es.
+- Any Entity Can Trigger Touch Switches Controller: while in a room with this controller, every entity can trigger touch switches, normal ones and the ones from [Maddie's Helping Hand](https://gamebanana.com/mods/53687).
 - Flag Custom Invisible Barrier: similar to [Frost Helper](https://gamebanana.com/mods/53647)'s `Custom Invisible Barrier`, but flag-toggled.
 - Force Grab Controller: while in a room with this controller, the grab input is force-pressed, similarly to invert grab mode with the button released.
 - **triggers:**

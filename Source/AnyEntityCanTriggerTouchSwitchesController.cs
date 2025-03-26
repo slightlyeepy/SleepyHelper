@@ -22,7 +22,7 @@ namespace Celeste.Mod.SleepyHelper {
 		}
 
 		public void Check(Entity entity) {
-			if (OnCollide != null && entity is not SolidTiles) {
+			if (OnCollide != null && entity is not SolidTiles && entity is not BackgroundTiles) {
 				Collider collider = base.Entity.Collider;
 				if (Collider != null)
 					base.Entity.Collider = Collider;
@@ -46,7 +46,7 @@ namespace Celeste.Mod.SleepyHelper {
 		}
 
 		public void Check(Entity entity) {
-			if (OnCollide != null && entity is not SolidTiles) {
+			if (OnCollide != null && entity is not SolidTiles && entity is not BackgroundTiles) {
 				Collider collider = base.Entity.Collider;
 				if (Collider != null)
 					base.Entity.Collider = Collider;

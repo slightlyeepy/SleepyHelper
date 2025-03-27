@@ -37,8 +37,8 @@ public class SleepyHelper : EverestModule {
 		if (ChroniaHelperLoaded)
 			Everest.Events.Level.OnLoadBackdrop -= levelOnLoadBackdrop;
 
-		if (AnyEntityCanTriggerTouchSwitchesController.HooksLoaded)
-			AnyEntityCanTriggerTouchSwitchesController.Unload();
+		if (OtherEntitiesCanTriggerStuffController.HooksLoaded)
+			OtherEntitiesCanTriggerStuffController.Unload();
 		if (DisableDialogueConfirmTrigger.HooksLoaded)
 			DisableDialogueConfirmTrigger.Unload();
 		if (ForceGrabController.HooksLoaded)

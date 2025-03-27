@@ -1,5 +1,5 @@
 - Name: SleepyHelper
-  Version: 1.4.3
+  Version: 1.5.0
   DLL: bin/SleepyHelper.dll
   Dependencies:
     - Name: EverestCore

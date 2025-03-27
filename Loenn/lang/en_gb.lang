@@ -7,7 +7,8 @@ mods.SleepyHelper.name=sleepy helper
 style.effects.SleepyHelper/NonStretchedCustomRain.name=Non-Stretched Custom Rain
 
 # entities
-entities.SleepyHelper/AnyEntityCanTriggerTouchSwitchesController.placements.name.entity=Any Entity Can Trigger Touch Switches Controller
+entities.SleepyHelper/OtherEntitiesCanTriggerStuffController.placements.name.entity=Other Entities Can Trigger Stuff Controller
+entities.SleepyHelper/OtherEntitiesCanTriggerStuffController.attributes.description.whitelist=A comma-separated list of class names of entities that will be allowed to trigger stuff.
 
 entities.SleepyHelper/ForceGrabController.placements.name.entity=Force Grab Controller
 
